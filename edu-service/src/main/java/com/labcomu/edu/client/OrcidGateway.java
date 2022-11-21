@@ -1,7 +1,11 @@
 package com.labcomu.edu.client;
 
 import com.labcomu.edu.configuration.EduProperties;
+import com.labcomu.edu.resource.Organization;
 import com.labcomu.edu.resource.Researcher;
+import com.labcomu.faultinjection.annotation.Throw;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +20,7 @@ public class OrcidGateway {
 
     private final WebClient.Builder webClientBuilder;
 
+    public static final String ORCID_GATEWAY = "orcid-gateway";
     public OrcidGateway(final WebClient.Builder webClientBuilder,
             final EduProperties properties) {
         this.webClientBuilder = webClientBuilder;
@@ -23,6 +28,7 @@ public class OrcidGateway {
 
     }
 
+    @Retry(name = ORCID_GATEWAY)
     public Researcher getResearcher(@NotNull final String orcid) {
         return webClientBuilder.build()
                 .get()

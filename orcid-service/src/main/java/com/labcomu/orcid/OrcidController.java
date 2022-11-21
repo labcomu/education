@@ -1,5 +1,6 @@
 package com.labcomu.orcid;
 
+import com.labcomu.faultinjection.annotation.Throw;
 import com.labcomu.orcid.resource.Researcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,7 @@ public class OrcidController {
     }
 
     @GetMapping("researcher/{orcid}")
+    @Throw(exception=RuntimeException.class, threshold=0.5)
     public Researcher getResearcher(@NotNull @PathVariable String orcid) {
         return service.getResearcher(orcid);
     }

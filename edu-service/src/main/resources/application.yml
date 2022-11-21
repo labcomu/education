@@ -2,6 +2,9 @@ server:
   port: 8381
 
 management:
+  health:
+    circuitbreakers:
+      enable: true
   endpoints:
     web:
       exposure:
@@ -29,3 +32,28 @@ app:
   url:
     fetch-organization-details: ${app.gateways.org.url}/org/organization/{url}
     fetch-researcher-details: ${app.gateways.orcid.url}/orcid/researcher/{orcid}
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 1
+        automaticTransitionFromOpenToHalfOpenEnable: true
+        waitDurationInOpenSate: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+    instances:
+      org-gateway:
+        baseConfig: default
+  retry:
+    instances:
+      orcid-gateway:
+        maxRetryAttempts: 2
+  ratelimiter:
+    instances:
+      org-gateway:
+        timeoutDuration: 3s

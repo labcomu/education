@@ -35,6 +35,8 @@ services:
         aliases:
           - discovery-server
   orcid-service:
+    deploy:
+      replicas: 2
     build:
       dockerfile: ../Dockerfile.runtime
       context: orcid-service
