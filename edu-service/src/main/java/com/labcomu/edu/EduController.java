@@ -15,10 +15,10 @@ import javax.validation.constraints.NotNull;
 @Validated
 @RequiredArgsConstructor
 public class EduController {
-  private final EduService service;
+	private final EduService service;
 
-  @GetMapping("organization/{url}")
-  public Organization getOrganization(@NotNull @PathVariable String url) {
-    return service.getOrganization(url);
-  }
+	@GetMapping("organization/{url}")
+	public Organization getOrganization(@NotNull @PathVariable String url) {
+		return service.getOrganization(url).orElse(new Organization());
+	}
 }
