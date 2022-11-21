@@ -27,16 +27,19 @@ public class EduService {
 	public Optional<Organization> getOrganization(String url) {
 		Optional<Organization> organization = Optional.empty();
 		try {
-			organization =  Optional.ofNullable(orgGateway.getOrganization(url));
+			organization = Optional.ofNullable(orgGateway.getOrganization(url));
 		} catch (ResponseGatewayException e) {
 			LOG.error(e.getMessage() + ": " + e.getStatus().name());
 			LOG.warn("Retornando valor vazio");
 			return organization;
 		}
 
-		organization.get().setResearchers(organization.get().getResearchers().stream()
-				.map(researcher -> orcidGateway.getResearcher(researcher.getOrcid())).toList());
-		
+		organization.get().setResearchers(
+				organization.get().getResearchers().stream()
+				.map(researcher -> {
+					return orcidGateway.getResearcher(researcher.getOrcid(), 0);
+				}).toList());
+
 		return organization;
 	}
 }
