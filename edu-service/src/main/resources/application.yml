@@ -1,6 +1,16 @@
 server:
   port: 8381
 
+resilience4j.circuitbreaker:
+  instances:
+    customer-service:
+      failureRateThreshold: 10
+      minimumNumberOfCalls: 5
+      slidingWindowType: TIME_BASED
+      slidingWindowSize: 10
+      waitDurationInOpenState: 30s
+      permittedNumberOfCallsInHalfOpenState: 2
+
 management:
   endpoints:
     web:

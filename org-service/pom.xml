@@ -29,9 +29,9 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+        </dependency>
             <!-- see OrgConfiguration -->
             <!--<scope>runtime</scope>-->
-        </dependency>
     </dependencies>
 
     <build>
