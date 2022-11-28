@@ -3,7 +3,7 @@ server:
 
 resilience4j.circuitbreaker:
   instances:
-    customer-service:
+    edu-service:
       failureRateThreshold: 10
       minimumNumberOfCalls: 5
       slidingWindowType: TIME_BASED
