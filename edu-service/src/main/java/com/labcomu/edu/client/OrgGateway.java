@@ -51,10 +51,11 @@ public class OrgGateway {
 		try {
 			Object result = future.get(3, TimeUnit.SECONDS);
 			return (Organization) result;
-		} catch (WebClientResponseException e) {
+		} catch (WebClientResponseException |  ExecutionException e) {
+			e.printStackTrace();
 			throw new ResponseGatewayException("Serviço indisponível", HttpStatus.SERVICE_UNAVAILABLE);
-		}
-		catch (TimeoutException | InterruptedException | ExecutionException ex) {
+		} catch (TimeoutException | InterruptedException ex) {
+			
 			ex.printStackTrace();
 			LOG.error("Timeout: OrgService demorou mais de 3s para responder.");
 			Organization organization = new Organization();

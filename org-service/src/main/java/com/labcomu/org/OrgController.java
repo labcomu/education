@@ -26,7 +26,7 @@ public class OrgController {
   private final OrgService service;
 
   @GetMapping("organization/{url}")
-  @Delay(value=5, threshold=0.9)
+  //@Delay(value=5, threshold=0.9)
   public ResponseEntity<ResourceOrganization> getOrganization(@NotNull @PathVariable String url) {
     return ResponseEntity.of(service.getOrganization(url));
   }
