@@ -31,7 +31,7 @@ do_common() {
   echo
   echo
   echo "organization | edu-service"
-  seq 1 11 | xargs -n1 -P10 curl --location --request GET "http://localhost:${EDU_SERVICE_PORT}/api/v1/edu/organization/ufrn.br"
+  seq 1 10 | xargs -n1 -P10 curl --location --request GET "http://localhost:${EDU_SERVICE_PORT}/api/v1/edu/organization/ufrn.br"
 
   echo
   echo
@@ -56,25 +56,25 @@ do_docker() {
   echo
   echo "organization | orcid-service replica 1"
   #echo "curl --location --request GET \"http://localhost:${ORCID_SERVICE_PORT_1}/api/v1/orcid/active\" -> change port to dynamically assigned from Docker"
-  curl --location --request GET "http://localhost:${ORCID_SERVICE_PORT_1}/api/v1/orcid/active"
+  seq 1 5 | xargs -n1 -P10 curl --location --request GET "http://localhost:${ORCID_SERVICE_PORT_1}/api/v1/orcid/active"
 
   echo
   echo
   echo "organization | orcid-service replica 1"
   #echo "curl --location --request GET \"http://localhost:${ORCID_SERVICE_PORT_1}/api/v1/orcid/researcher/0000-0002-2102-8577\" -> change port to dynamically assigned from Docker"
-  curl --location --request GET "http://localhost:${ORCID_SERVICE_PORT_1}/api/v1/orcid/researcher/0000-0002-2102-8577"
+  seq 1 5 | xargs -n1 -P10 curl --location --request GET "http://localhost:${ORCID_SERVICE_PORT_1}/api/v1/orcid/researcher/0000-0002-2102-8577"
 
   echo
   echo
   echo "organization | orcid-service replica 2"
   #echo "curl --location --request GET \"http://localhost:${ORCID_SERVICE_PORT_2}/api/v1/orcid/active\" -> change port to dynamically assigned from Docker"
-  curl --location --request GET "http://localhost:${ORCID_SERVICE_PORT_2}/api/v1/orcid/active"
+  seq 1 5 | xargs -n1 -P10 curl --location --request GET "http://localhost:${ORCID_SERVICE_PORT_2}/api/v1/orcid/active"
 
   echo
   echo
   echo "organization | orcid-service replica 2"
   #echo "curl --location --request GET \"http://localhost:${ORCID_SERVICE_PORT_2}/api/v1/orcid/researcher/0000-0002-2102-8577\" -> change port to dynamical>
-  curl --location --request GET "http://localhost:${ORCID_SERVICE_PORT_2}/api/v1/orcid/researcher/0000-0002-2102-8577"
+  seq 1 5 | xargs -n1 -P5 curl --location --request GET "http://localhost:${ORCID_SERVICE_PORT_2}/api/v1/orcid/researcher/0000-0002-2102-8577"
 
 
   do_common
