@@ -5,7 +5,7 @@ do_local() {
 }
 
 do_docker() {
-  echo 1
+  ./compile_docker_stop.sh
   ./compile_docker_start.sh
   ./compile_docker_stop.sh
 }
